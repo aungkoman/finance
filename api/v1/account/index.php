@@ -19,6 +19,15 @@ switch ($method) {
         $ops_type = (string) isset($request_data['ops_type']) ? sanitize_str($request_data['ops_type'],"account->ops_type") :  return_fail('account->ops_type : ops_type is not defined in requested data'); // ops_type sanitize string
         switch ($ops_type){
             case 'insert':
+                /* what we have to do?
+                    1. insert new account and get inserted_id
+                    2. insert account_transaction
+                    3. return success , yes just succes coz we already die error during exection
+                    no no 
+                    Just break the controller and work in model :D 
+                    Coz we alredy knew the constraint for each operiation
+                    such as every insertion has finance opening balance log
+                */
                 $account->insert($request_data);
                 break;
             case 'select':
