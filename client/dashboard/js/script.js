@@ -50,17 +50,6 @@
             // View
             // May be this is blue print for the whole project
             
-            // this is sample data
-            var BankData = [
-              {
-                id : 1,
-                name : "MWD Bank"
-              },
-              {
-                id : 2,
-                name : "Innwa Bank"
-              }
-            ];
             var Bank = Backbone.Model.extend({
                 defaults:{
                     id : null,

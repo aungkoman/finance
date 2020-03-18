@@ -66,7 +66,7 @@ class ACCOUNT{
                         //$finance->title = null;
                         $finance->auth = null;
 
-                        $finance_id = R::store($finance);
+                        $finance_id = R::store($finance); // insert
 
                         return_success("account->insert",$this->account);
                 }catch(Exception $exp){
