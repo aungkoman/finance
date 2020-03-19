@@ -43,11 +43,10 @@ class TITLE{
 
                 try{
                         $id = R::store($this->title);
-                        $test = $this->title->currency;
 
                         // insert appropriate finance
                         $finance = R::dispense('finance');
-                        $finance->ops = "opeing_balance";
+                        $finance->ops = "opening_balance";
                         $finance->amount = $this->title->balance;
                         $finance->account_balance = null;
                         $finance->title_balance = $this->title->balance;
@@ -64,6 +63,7 @@ class TITLE{
                         $finance->auth = null;
                         $finance_id = R::store($finance);
 
+                        $test = $this->title->currency; // to get full data 
                         return_success("title->insert",$this->title);
                 }catch(Exception $exp){
                         return_fail("title->insert : exception ",$exp->getMessage());

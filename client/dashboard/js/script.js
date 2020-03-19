@@ -495,6 +495,9 @@
                     id : null,
                     serial_no : null,
                     name : null,
+                    opening_date : null,
+                    balance : null,
+                    exchange_rate : null,
                     currency_id : null,
                     bank_id : null,
                     currency : {
@@ -651,6 +654,9 @@
                   var jwt = "thisIsJwt";
                   var accountId = $("#accountIdInput").val();
                   var accountName = $("#accountNameInput").val();
+                  var accountBalance = $("#accountBalanceInput").val();
+                  var accountOpeningDate = $("#accountOpeningDateInput").val();
+                  var accountExchangeRate= $("#accountExchangeRateInput").val();
                   var currencyId = $("#accountCurrencySelect").val();
                   var bankId = $("#accountBankSelect").val();
 
@@ -663,12 +669,18 @@
                   }
                   console.log("accountId : "+accountId);
                   console.log("accountName : "+accountName);
+                  console.log("accountBalance : "+accountBalance);
+                  console.log("accountOpeningDate : "+accountOpeningDate);
+                  console.log("accountExchangeRate : "+accountExchangeRate);
                   console.log("currencyId : "+currencyId);
                   console.log("bankId : "+bankId);
                   
                   formdata.append("ops_type", opsType);
                   formdata.append("jwt", jwt);
                   formdata.append("name", accountName);
+                  formdata.append("balance", accountBalance);
+                  formdata.append("opening_date", accountOpeningDate);
+                  formdata.append("exchange_rate", accountExchangeRate);
                   formdata.append("currency", currencyId);
                   formdata.append("bank", bankId);
 
@@ -936,6 +948,11 @@
                     id : null,
                     serial_no : null,
                     name : null,
+                    balance : null,
+                    total_income : null,
+                    total_expense : null,
+                    exchange_rate : null,
+                    opening_date : null,
                     calculation : null,
                     currency_id : null,
                     currency : {
@@ -1084,6 +1101,11 @@
                   var jwt = "thisIsJwt";
                   var titleId = $("#titleIdInput").val();
                   var titleName = $("#titleNameInput").val();
+                  var titleBalance = $("#titleBalanceInput").val();
+                  var titleTotalIncome = $("#titleTotalIncomeInput").val();
+                  var titleTotalExpense = $("#titleTotalExpenseInput").val();
+                  var titleOpeningDate = $("#titleOpeningDateInput").val();
+                  var titleExchangeRate = $("#titleExchangeRateInput").val();
                   var calculation = $("#titleCalculationSelect").val();
                   var currencyId = $("#titleCurrencySelect").val();
 
@@ -1096,12 +1118,22 @@
                   }
                   console.log("titleId : "+titleId);
                   console.log("titleName : "+titleName);
+                  console.log("titleBalance : "+titleBalance);
+                  console.log("titleTotalIncome : "+titleTotalIncome);
+                  console.log("titleTotalExpense : "+titleTotalExpense);
+                  console.log("titleOpeningDate : "+titleOpeningDate);
+                  console.log("titleExchangeRate : "+titleExchangeRate);
                   console.log("calculation : "+calculation);
                   console.log("currencyId : "+currencyId);
                   
                   formdata.append("ops_type", opsType);
                   formdata.append("jwt", jwt);
                   formdata.append("name", titleName);
+                  formdata.append("balance", titleBalance);
+                  formdata.append("total_income", titleTotalIncome);
+                  formdata.append("total_expense", titleTotalExpense);
+                  formdata.append("opening_date", titleOpeningDate);
+                  formdata.append("exchange_rate", titleExchangeRate);
                   formdata.append("calculation", calculation);
                   formdata.append("currency", currencyId);
 
@@ -1204,6 +1236,8 @@
                 },
                 render : function(){
                     var modelData = this.model.toJSON();
+                    console.log("Finance Model for Row is rendered");
+                    console.log(modelData);
                     this.$el.html(this.template(modelData));
                     return this;
                 },
@@ -1386,10 +1420,19 @@
                           var orgData = Finances.find(function(finance){
                             return finance.get("id") == financeIdInput;
                           });
+                          var orgAccount = Accounts.find(function(account){
+                            return account.get("id") == financeAccountSelect;
+                          });
+                          var orgTitle = Titles.find(function(title){
+                            return title.get("id") == financeTitleSelect;
+                          });
+
                           if(orgData === undefined){
                             console.log("financeIdInput id cannot find id "+financeIdInput);
                             msg = response.data.description+" is added";
                             Finances.add(response.data);
+                            orgAccount.set(response.data.account); // magic is in the air :D
+                            orgTitle.set(response.data.title);
                           }else{
                             msg = response.data.description+" is updated";
                             orgData.set(response.data);
@@ -1526,8 +1569,10 @@
             // 12. Request focus on Account Modal Input
             $("#newAccountModal").on('shown.bs.modal',function(){
                 $("#accountIdInput").focus();
-                $("#accountNameInput").focus();
                 $("#accountCurrencySelect").focus().click();
+                $("#accountBalanceInput").focus();
+                $("#accountExchangeRateInput").focus();
+                $("#accountNameInput").focus();
             });
 
 
@@ -1590,9 +1635,14 @@
             // 20. Request focus on Title Modal Input
             $("#newTitleModal").on('shown.bs.modal',function(){
                 $("#titleIdInput").focus();
-                $("#titleNameInput").focus();
                 $("#titleCalculationSelect").focus();
                 $("#titleCurrencySelect").focus();
+                $("#titleBalanceInput").focus();
+                $("#titleTotalIncomeInput").focus();
+                $("#titleTotalExpenseInput").focus();
+                $("#titleOpeningDateInput").focus();
+                $("#titleExchangeRatenput").focus();
+                $("#titleNameInput").focus();
             });
 
 
@@ -1639,6 +1689,38 @@
                 $("#financeDescriptionInput").focus();
             });
 
+            // 25. Calculate Trail Button Click Listener
+            $("#trailCalculateForm").on('submit',function(e){
+              e.preventDefault();
+              console.log("trailCalculateForm is submited");
+              var start_date = $("#trailStartDateInput").val();
+              var end_date = $("#trailEndDateInput").val();
+              if(start_date == "") {
+                toastr.warning("Start Date has to be provided");
+                //$("#trailStartDateInput").focus();
+                return;
+              }
+              if(end_date == "") {
+                toastr.warning("End Date has to be provided");
+                //$("#trailEndDateInput").focus();
+                return;
+              }
+              /* 
+                TDL : 
+                  check two date input for invalid interval choice or null
+                  such as 
+                    1. both start date and end date have to be filled
+                    2. the start date have to be smaller than end date
+                AND
+                  1. submit via ajax request to get trail result for selected interval
+                  2. update / set the trail result model collection
+              */
+              showLoadingModal("Calculating trail for selected date range");
+              setTimeout(function(){
+                hideLoadingModal();
+              },2000);
+            })
+
 
 
 
@@ -1649,7 +1731,7 @@
             // Loading initial data to fill up Global Data
 
             // prepare to ui
-            $("#bankTable > tbody").html("<tr><td colspan='3'>Getting Bank data from server....</td></tr>");
+            $("#bankTable > tbody").html("<tr><td colspan='3'><img src='img/mdb-transaprent-noshadows.png' class='animated slow flash infinite' alt='Transparent MDB Logo'> Getting Bank data from server...</td></tr>");
             $("#currencyTable > tbody").html("<tr><td colspan='3'>Getting Currency data from server....</td></tr>");
             $("#accountTable > tbody").html("<tr><td colspan='3'>Getting Account data from server....</td></tr>");
             $("#authTable > tbody").html("<tr><td colspan='3'>Getting Auth data from server....</td></tr>");
@@ -1674,10 +1756,11 @@
                   setTimeout(function(){
                     $("#bankTable > tbody").empty();
                     Banks.add(response.data);
+                    if(response.data.length == 0 ) $("#bankTable > tbody").html("<tr><td colspan='3'>There is no Banks on server. Please add new bank.</td></tr>");
                   },1000);
                 }else{
                   console.log("there is no bank :D");
-                  $("#bankTable > tbody").html("<tr><td colspan='3'>There is no Banks on server.</td></tr>");
+                  $("#bankTable > tbody").html("<tr><td colspan='3'>There is no Banks on server.Please add new bank.</td></tr>");
                 }
               },
               error: function(response) {

@@ -47,12 +47,13 @@ class ACCOUNT{
 
                 try{
                         $id = R::store($this->account);
-                        $test = $this->account->currency;
-                        $test = $this->account->bank;
+                        //$test = $this->account->currency;
+                        //echo "test currency is ".$test;
+                        //$test = $this->account->bank;
 
 
                         $finance = R::dispense('finance');
-                        $finance->ops = "opeing_balance";
+                        $finance->ops = "opening_balance";
                         $finance->amount = $this->account->balance;
                         $finance->account_balance = $this->account->balance;
                         $finance->title_balance = null;
@@ -67,6 +68,9 @@ class ACCOUNT{
                         $finance->auth = null;
 
                         $finance_id = R::store($finance); // insert
+
+                        $test = $this->account->currency;
+                        $test = $this->account->bank;
 
                         return_success("account->insert",$this->account);
                 }catch(Exception $exp){

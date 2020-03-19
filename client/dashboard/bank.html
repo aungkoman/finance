@@ -138,6 +138,10 @@
               <a href="#finacneSection" class="collapsible-header waves-effect"><i
                   class="w-fa fas fa-tachometer-alt"></i>Finance</a>
             </li>
+            <li>
+              <a href="#trialSection" class="collapsible-header waves-effect"><i
+                  class="w-fa fas fa-tachometer-alt"></i>Trial</a>
+            </li>
 
 
           </ul>
@@ -222,7 +226,7 @@
     <!-- Navbar -->
 
     <!-- Fixed button -->
-    <div class="fixed-action-btn clearfix d-none d-xl-block" style="bottom: 45px; right: 24px;">
+    <!--div class="fixed-action-btn clearfix d-none d-xl-block" style="bottom: 45px; right: 24px;">
 
       <a class="btn-floating btn-lg red">
         <i class="fas fa-pencil-alt"></i>
@@ -235,7 +239,7 @@
         <li><a class="btn-floating blue"><i class="fas fa-shopping-cart"></i></a></li>
       </ul>
 
-    </div>
+    </div-->
     <!-- Fixed button -->
 
   </header>
@@ -251,7 +255,12 @@
         <!-- Card -->
         <div class="card" style="padding:50px">
             <div class="card-body">
-            
+
+
+            <!--img src='img/mdb-transaprent-noshadows.png' class='animated slow flash infinite' alt='Transparent MDB Logo'>
+            Getting Bank data from server <span  class="animated bounce infinite" > loading.... </span-->
+
+
             <h4>Bank List</h4>
             <table class="table" id="bankTable">
                 <thead>
@@ -334,6 +343,8 @@
                     <tr>
                         <th>No</th>
                         <th>Account Name</th>
+                        <th>Balance</th>
+                        <th>Opening Date</th>
                         <th>Currency</th>
                         <th>Bank</th>
                         <th>Edit</th>
@@ -344,6 +355,8 @@
                     <tr>
                         <td>1</td>
                         <td>MWD MMK 1</td>
+                        <td>Balance</td>
+                        <td>Opening Date</td>
                         <td>MMK</td>
                         <td>MWD</td>
                         <td><a data-toggle="modal" data-target="#newAccountModal"><i class="fas fa-edit color-blue"></i></a></td>
@@ -414,7 +427,11 @@
                     <tr>
                         <th>No</th>
                         <th>Title Name</th>
+                        <th>Balance</th>
+                        <th>Total Income</th>
+                        <th>Total Expense</th>
                         <th>Currency</th>
+                        <th>Opening Date</th>
                         <th>Final Calculation</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -424,7 +441,11 @@
                     <tr>
                         <td>1</td>
                         <td>Title 1</td>
+                        <td>balance</td>
+                        <td>total_income</td>
+                        <td>total_expense</td>
                         <td>MMK</td>
+                        <td>opening_date</td>
                         <td>Profit</td>
                         <td><a data-toggle="modal" data-target="#newTitleModal"><i class="fas fa-edit color-blue"></i></a></td>
                         <td><a href="#"><i class="fas fa-trash color-red"></i></a></td>
@@ -460,7 +481,7 @@
                         <th>Ops</th>
                         <th>Title</th>
                         <th>Account</th>
-                        <th>Exchange Rate</th>
+                        <!--th>Exchange Rate</th-->
                         <th>Created Date</th>
                         <th>Payment Method</th>
                         <th>Payment Data</th>
@@ -495,6 +516,117 @@
 
       </section>
       <!-- Section: Finance Section -->
+
+
+
+      <br><br><br><br>
+      <!-- Section: Trail Section -->
+      <section id="trailSection">
+
+        <!-- Card -->
+        <div class="card" style="padding:50px">
+            <div class="card-body">
+            
+            <h4>Trail Section</h4>
+            
+                <form id="trailCalculateForm" action="#">
+
+              <!-- Grid row -->
+              <div class="row">
+               <div class="col-xl-4 col-md-4">
+                  
+									<div class="md-form"> <i class="fas fa-envelope prefix"></i>
+										<input type="date" class="form-control datepicker" name="start_date" id="trailStartDateInput" required>
+										<label for="trailStartDateInput">Start Date</label>
+									</div>
+                </div>
+
+
+                  
+               <div class="col-xl-4 col-md-4">
+									<div class="md-form"> <i class="fas fa-envelope prefix"></i>
+										<input type="date" class="form-control datepicker" name="end_date" id="trailEndDateInput" required>
+										<label for="trailEndDateInput">End Date</label>
+									</div>
+                </div>
+
+
+                <!-- Grid column -->
+                <!--div class="col-xl-3 col-md-6">
+
+                  <div class="md-form">
+										<select class="mdb-select colorful-select dropdown-info mx-2 md-form mt-3 md-dropdown" name="department" id='gopd_hospital_military_personnel_input' required>
+											<option value="" disabled selected>-- Choose Income/Expense --</option>
+											<option value="all_hospital">Income</option>
+											<option value="all_hospital">Expense</option>
+										</select>
+									</div>
+
+                </div-->
+                <!-- Grid column -->
+
+
+                  <!--form class="form-inline mt-2 ml-2" action="#">
+                    <div class="form-group md-form mt-2">
+                      <input type="submit" class="btn-primary" value="Calculate">
+                    </div>
+                  </form-->
+               <div class="col-xl-4 col-md-4">
+                  <div class="md-form">
+                    <button id="trailCalculateButton" type="submit" class="btn btn-primary waves-effect waves-light">
+                    <i class="w-fa fas fa-tachometer-alt"></i>  Calculate Trail</button>
+                  </div>
+                </div>
+
+                </div>
+
+
+                </form>
+              </div>
+              <!-- Grid row -->
+
+
+
+
+            <table class="table " id="trailTable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Account / Title</th>
+                        <th>Total Income</th>
+                        <th>Total Expense</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Account 1 ( Opening Balance ) </td>
+                        <td colspan="2">125,154,124</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Title 1  </td>
+                        <td>25,589,562</td>
+                        <td>784,589,578</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Title 2</td>
+                        <td>456,258,159</td>
+                        <td>753,684,426</td>
+                    </tr>
+                        <td>1</td>
+                        <td>Account 1 ( Close Balance ) </td>
+                        <td colspan="2"> 125,154,124</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <!-- Card -->
+
+      </section>
+      <!-- Section: Trail Section -->
 
 
     </div>
@@ -680,6 +812,11 @@
     <script type="text/x-template" id="accountRowTemplate">
       <td><%= serial_no %></td>
       <td><%= name %></td>
+      <% var mul = exchange_rate * balance %>
+      <td  data-toggle="tooltip" data-placement="top" title="Equavalent MMK For <%= currency.name %>  in Exchange Rate (<%= exchange_rate %>) is <%= mul %> "><%= balance %>  <%= currency.name %></td>
+
+      <!--td><%= balance %></td-->
+      <td><%= opening_date %></td>
       <td><%= currency.name %></td>
       <td><%= bank.name %></td>
       <td><a data-toggle="modal" data-target="#newAccountModal"><i class="fas fa-edit color-blue edit"></i></a></td>
@@ -709,6 +846,18 @@
                             <input type="text" id="accountNameInput" name="name" value="<%= name %>" class="form-control"  required>
                             <label for="accountNameInput">Name</label>
                         </div>
+
+                        <div class="md-form mt-3">
+                            <input type="number" id="accountBalanceInput" name="balance" value="<%= balance %>" class="form-control"  required>
+                            <label for="accountBalanceInput">Balance</label>
+                        </div>
+
+                        <br>
+
+                        <div class="md-form mt-3">
+                            <input type="date" id="accountOpeningDateInput" name="opening_date" value="<%= opening_date %>" class="form-control"  required>
+                            <label for="accountOpeningDateInput">Opening Date</label>
+                        </div>
                         
                         <select class="mdb-select colorful-select dropdown-primary md-form" id="accountCurrencySelect" required>
                             <option value="" disabled>Currency</option>
@@ -723,6 +872,11 @@
                               <% } %>
                             <% })%>
                         </select>
+
+                        <div class="md-form mt-3">
+                            <input type="number" id="accountExchangeRateInput" name="balance" value="<%= exchange_rate %>" class="form-control"  required>
+                            <label for="accountExchangeRateInput">Exchange Rate</label>
+                        </div>
                         
                         
                         <select class="mdb-select colorful-select dropdown-primary md-form" id="accountBankSelect" required>
@@ -804,7 +958,15 @@
     <script type="text/x-template" id="titleRowTemplate">
       <td><%= serial_no %></td>
       <td><%= name %></td>
+
+      <% var mul = exchange_rate * balance %>
+      <td  data-toggle="tooltip" data-placement="top" title="Equavalent MMK For <%= currency.name %>  in Exchange Rate (<%= exchange_rate %>) is <%= mul %> "><%= balance %>  <%= currency.name %></td>
+
+      <!--td><%= balance %></td-->
+      <td><%= total_income %></td>
+      <td><%= total_expense %></td>
       <td><%= currency.name %></td>
+      <td><%= opening_date %></td>
       <td><%= calculation %></td>
       <td><a data-toggle="modal" data-target="#newTitleModal"><i class="fas fa-edit color-blue edit"></i></a></td>
       <td><a href="#"><i class="fas fa-trash color-red delete"></i></a></td>
@@ -832,6 +994,21 @@
                             <input type="text" id="titleNameInput" name="name" value="<%= name %>" class="form-control"  required>
                             <label for="titleNameInput">Name</label>
                         </div>
+
+                        <div class="md-form mt-3">
+                            <input type="number" id="titleBalanceInput" name="balance" value="<%= balance %>" class="form-control"  required>
+                            <label for="titleBalanceInput">Balance</label>
+                        </div>
+
+                        <div class="md-form mt-3">
+                            <input type="number" id="titleTotalIncomeInput" name="total_income" value="<%= total_income %>" class="form-control"  required>
+                            <label for="titleTotalIncomeInput">Total Income</label>
+                        </div>
+
+                        <div class="md-form mt-3">
+                            <input type="number" id="titleTotalExpenseInput" name="total_expense" value="<%= total_expense %>" class="form-control"  required>
+                            <label for="titleTotalExpenseInput">Total Expense</label>
+                        </div>
                         
                         <select class="mdb-select colorful-select dropdown-primary md-form" id="titleCurrencySelect" required name="currency">
                             <option value="" disabled>Currency</option>
@@ -846,6 +1023,17 @@
                               <% } %>
                             <% })%>
                         </select>
+
+                        <div class="md-form mt-3">
+                            <input type="number" id="titleExchangeRateInput" name="exchange_rate" value="<%= exchange_rate %>" class="form-control"  required>
+                            <label for="titleExchangeRateInput">Exchange Rate</label>
+                        </div>
+
+                        <br>
+                        <div class="md-form mt-3">
+                            <input type="date" id="titleOpeningDateInput" name="opening_date" value="<%= opening_date %>" class="form-control"  required>
+                            <label for="titleOpeningDateInput">Opening Date</label>
+                        </div>
 
                         <!-- here we should use the calculation in third party, so , we can use dynamic calculation :D , in this case, just fixed input as drop down-->    
                         
@@ -870,7 +1058,7 @@
 
     <!-- Finance Row Template -->
     <script type="text/x-template" id="financeRowTemplate">
-                        <% var mul = exchange_rate * amount %>
+      <% var mul = exchange_rate * amount %>
                         <td><%= serial_no %></td>
                         <td><%= description %></td>
                         <td  data-toggle="tooltip" data-placement="top"
@@ -879,7 +1067,7 @@
                         <td><%= title.name %></td>
                         <td><%= account.name %></td>
                         <!-- we need to check this column show or hide according to currency-->
-                        <td><%= exchange_rate %> +  <%= mul %></td>
+                        <!--td><%= exchange_rate %> +  <%= mul %></td-->
                         <td><%= created_date %></td>
                         <td><%= payment_method %></td>
                         <td><%= payment_data %></td>

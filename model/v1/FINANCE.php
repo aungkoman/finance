@@ -94,7 +94,7 @@ class FINANCE{
                 $title->opening_date = $this->finance->created_date;
                 $title->total_income = $this->finance->total_income; // may be zero or update
                 $title->total_expense = $this->finance->total_expense; // may be zero or update
-                $title->exchage_rate = $this->finance->exchange_rate;
+                $title->exchange_rate = $this->finance->exchange_rate;
                 $title->modified_date = $this->finance->modified_date;
 
 
@@ -116,22 +116,25 @@ class FINANCE{
                         $test = $this->finance->auth; // to get relate data
                         return_success("finance->insert",$this->finance);
                 }catch(Exception $exp){
-                        R::rollback(); // something went wrong 
-                        return_fail("finance->insert : exception ( rollback ) ",$exp->getMessage());
+                        R::rollback(); // something wentfinance->insert : exception wrong 
+                        return_fail(" ( rollback ) ",$exp->getMessage());
                 }
         }
         public function select($data){
                 $limit = (int) isset($data['limit']) ? sanitize_int($data['limit']) : 0;
                 $last_id = (int) isset($data['last_id']) ? sanitize_int($data['last_id']) : 0;
-                if($limit == 0 ) $finances = R::find('finance',' id > ? ', [ $last_id ]);
-                else $finances = R::find('finance', ' id > ? LIMIT ?', [ $last_id, $limit ] );
+                $income = "income";
+                $expense = "expense";
+                if($limit == 0 ) $finances = R::find('finance',' id > ?  AND ( ops = ? OR ops = ? )', [ $last_id, $income, $expense]);
+                else $finances = R::find('finance', ' id > ? AND (ops = ? OR ops = ? )   LIMIT ?', [ $last_id,$income,$expense, $limit ] );
                 $return_data = array();
                 $test;
                 foreach($finances AS $index=>$finance){
+                        //echo "<br>finance id to check : ".$finance->id;
                         $test = $finance->account; // to get relate data
-                        $test = $finance->account->bank;
+                        //$test = $finance->account->bank;
                         $test = $finance->title; // to get relate data
-                        $test = $finance->title->bank;
+                        //$test = $finance->title->bank;
                         $test = $finance->title->currency;
                         $test = $finance->auth; // to get relate data
                         $return_data[] = $finance;
