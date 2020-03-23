@@ -21,10 +21,10 @@ class FINANCE{
                 $this->finance->ops = (string) isset($data['ops']) ? sanitize_str($data['ops'],"finance->insert : ops") :  return_fail('finance->insert : ops is not defined in requested data');
 
                 // 4. amount
-                $this->finance->amount = (int) isset($data['amount']) ? sanitize_int($data['amount'],"finance->insert : amount") :  return_fail('finance->insert : amount is not defined in requested data');
+                $this->finance->amount = (float) isset($data['amount']) ? sanitize_float($data['amount'],"finance->insert : amount") :  return_fail('finance->insert : amount is not defined in requested data');
                 
                 // 5. exchange rate
-                $this->finance->exchange_rate = (int) isset($data['exchange_rate']) ? sanitize_int($data['exchange_rate'],"finance->insert : exchange_rate") :  0;
+                $this->finance->exchange_rate = (float) isset($data['exchange_rate']) ? sanitize_float($data['exchange_rate'],"finance->insert : exchange_rate") :  0;
                 
                 // 6. description
                 $this->finance->description = (string) isset($data['description']) ? sanitize_str($data['description'],"finance->insert : description") :  return_fail('finance->insert : description is not defined in requested data');
@@ -152,9 +152,9 @@ class FINANCE{
 
                 $finance->ops = (string) isset($data['ops']) ? sanitize_str($data['ops'],"finance->update : ops") :  $finance->ops;
 
-                $finance->amount = (int) isset($data['amount']) ? sanitize_int($data['amount'],"finance->update : amount") :  $finance->amount;
+                $finance->amount = (float) isset($data['amount']) ? sanitize_float($data['amount'],"finance->update : amount") :  $finance->amount;
 
-                $finance->exchange_rate = (int) isset($data['exchange_rate']) ? sanitize_int($data['exchange_rate'],"finance->update : exchange_rate") :  $finance->exchange_rate;
+                $finance->exchange_rate = (float) isset($data['exchange_rate']) ? sanitize_float($data['exchange_rate'],"finance->update : exchange_rate") :  $finance->exchange_rate;
 
                 $finance->description = (string) isset($data['description']) ? sanitize_str($data['description'],"finance->update : description") :  $finance->description;
 

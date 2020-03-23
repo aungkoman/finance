@@ -34,10 +34,10 @@ class ACCOUNT{
                 $this->account->opening_date = date("Y-m-d",$opening_date); // well formated time
 
                 // 5. balance
-                $this->account->balance = (int) isset($data['balance']) ? sanitize_int($data['balance'],"account->insert : balance") :  return_fail('account->insert : balance is not defined in requested data');
+                $this->account->balance = (float) isset($data['balance']) ? sanitize_float($data['balance'],"account->insert : balance") :  return_fail('account->insert : balance is not defined in requested data');
 
                 // 6. exchange_rate
-                $this->account->exchange_rate = (int) isset($data['exchange_rate']) ? sanitize_int($data['exchange_rate'],"account->insert : exchange_rate") :  1; // default is ONE ( may be MMK :D )
+                $this->account->exchange_rate = (float) isset($data['exchange_rate']) ? sanitize_float($data['exchange_rate'],"account->insert : exchange_rate") :  1; // default is ONE ( may be MMK :D )
 
                 // 6. created_date
                 $this->account->created_date = date("Y-m-d h:m:s");
@@ -124,7 +124,7 @@ class ACCOUNT{
                 $account->opening_date = date("Y-m-d",$opening_date); // well formated time
 
                 // 7. balance
-                $account->balance = (int) isset($data['balance']) ? sanitize_int($data['balance'],"account->update : balance") :  $account->balance;
+                $account->balance = (float) isset($data['balance']) ? sanitize_float($data['balance'],"account->update : balance") :  $account->balance;
 
                 // 8. we just omit created_date :D
 
