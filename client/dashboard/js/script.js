@@ -1,5 +1,4 @@
-
-        "use strict";
+"use strict";
         $(document).ready(function(){
             /////////////////////////////////////////////////////
             // Global variable
@@ -1937,7 +1936,6 @@
             /* test case */
 
             /* model test 
-
             var innwa = new Bank({"name":"innwa","id":56});
             //var view = new ThankView({ model: newThank });
             //$('#thanks_ul').prepend( view.render().el );
@@ -1957,7 +1955,6 @@
                   var view = new ThankView({ model: thank });
                   $('#thanks_ul').prepend( view.render().el );
                           });
-
             */
 
             //Banks = new BankList(BankData);
